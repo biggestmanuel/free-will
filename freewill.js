@@ -187,7 +187,7 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no markd
   'X-Client-Name': 'freewill-analysis',
 },
 body: JSON.stringify({
-  model: 'command-r-plus-08-2024',
+  model: 'command-r',
       messages: [{ role: 'user', content: prompt }],
     }),
   });
