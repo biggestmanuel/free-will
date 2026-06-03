@@ -3,7 +3,7 @@
    Quiz logic, OCEAN scoring, and Openrouter API integration
 ═══════════════════════════════════════════ */
 
-const API_KEY = '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';
+const API_KEY = 'OPENROUTER_API_KEY';
 
 /* ── Question Bank ──────────────────────────
    trait: O=Openness C=Conscientiousness
