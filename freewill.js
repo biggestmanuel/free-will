@@ -195,6 +195,7 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no markd
   }
 
   const data = await response.json();
+  console.log('OpenRouter response:', JSON.stringify(data));
   const text = data.choices[0].message.content.trim();
 
   const clean = text.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
