@@ -193,9 +193,10 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no markd
   });
 
   if (!response.ok) {
-    const err = await response.json();
-    console.error('Cohere error:', JSON.stringify(err));
+    const errText = await response.text();
+    console.error('Cohere raw error:', errText);
     throw new Error(`API error: ${response.status}`);
+  }
   }
 
   const data = await response.json();
