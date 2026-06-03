@@ -183,7 +183,7 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no markd
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: 'google/gemma-3-4b-it:free',
+      model: 'openrouter/auto',
       messages: [{ role: 'user', content: prompt }],
     }),
   });
