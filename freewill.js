@@ -329,6 +329,10 @@ $btnNext.addEventListener('click', () => {
 
 // Retake
 $btnRetake.addEventListener('click', () => {
+    document.getElementById('btn-share').addEventListener('click', () => {
+  console.log('share clicked');
+  document.getElementById('share-modal').classList.add('active');
+});
   currentQ = 0;
   answers  = new Array(QUESTIONS.length).fill(null);
 
@@ -430,10 +434,6 @@ Take yours → ${siteUrl}`;
 const _origRenderScoreBars = renderScoreBars;
 const _origRenderProfileText = renderProfileText;
 
-document.getElementById('btn-share').addEventListener('click', () => {
-  console.log('share clicked');
-  document.getElementById('share-modal').classList.add('active');
-});
 
 document.getElementById('share-close').addEventListener('click', () => {
   document.getElementById('share-modal').classList.remove('active');
