@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freewill Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="freewill.css" />
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════
+       SCREEN 1 — LANDING
+  ════════════════════════════════════════ -->
+  <section id="screen-landing" class="screen active">
+    <div class="landing-inner">
+      <p class="eyebrow">Personality Intelligence</p>
+      <h1 class="landing-title">Freewill<br><em>Analysis</em></h1>
+      <p class="landing-sub">
+        A psychometric assessment rooted in the Big Five (OCEAN) model.
+        Fifteen questions. One unflinching portrait of who you are.
+      </p>
+      <button class="btn-primary" id="btn-start">Begin Assessment</button>
+      <p class="landing-note">Takes approximately 3–5 minutes</p>
+    </div>
+    <div class="landing-deco" aria-hidden="true">
+      <span class="deco-letter">O</span>
+      <span class="deco-letter">C</span>
+      <span class="deco-letter">E</span>
+      <span class="deco-letter">A</span>
+      <span class="deco-letter">N</span>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCREEN 2 — QUIZ
+  ════════════════════════════════════════ -->
+  <section id="screen-quiz" class="screen">
+    <div class="quiz-inner">
+
+      <header class="quiz-header">
+        <span class="quiz-brand">Freewill Analysis</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="quiz-counter" id="quiz-counter">1 / 15</span>
+      </header>
+
+      <div class="question-wrap" id="question-wrap">
+        <p class="trait-label" id="trait-label">Extraversion</p>
+        <h2 class="question-text" id="question-text">Question goes here</h2>
+
+        <div class="scale-labels">
+          <span>Strongly Disagree</span>
+          <span>Strongly Agree</span>
+        </div>
+
+        <div class="options-row" id="options-row">
+          <!-- 5 option buttons injected by JS -->
+        </div>
+
+        <div class="scale-numbers">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn-ghost" id="btn-back">← Back</button>
+        <button class="btn-primary" id="btn-next" disabled>Next →</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCREEN 3 — LOADING / ANALYZING
+  ════════════════════════════════════════ -->
+  <section id="screen-loading" class="screen">
+    <div class="loading-inner">
+      <div class="spinner" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <h2 class="loading-title">Analyzing your profile</h2>
+      <p class="loading-sub" id="loading-msg">Calculating trait scores…</p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCREEN 4 — RESULTS
+  ════════════════════════════════════════ -->
+  <section id="screen-results" class="screen">
+    <div class="results-inner">
+
+      <header class="results-header">
+        <p class="eyebrow">Your Personality Profile</p>
+        <h1 class="results-title">Freewill <em>Analysis</em></h1>
+      </header>
+
+      <!-- OCEAN Score Bars -->
+      <div class="scores-section">
+        <h3 class="section-label">OCEAN Trait Scores</h3>
+        <div class="score-bars" id="score-bars">
+
+          <div class="score-row">
+            <span class="score-trait">Openness</span>
+            <div class="bar-track">
+              <div class="bar-fill" id="bar-O" style="--pct: 0%"></div>
+            </div>
+            <span class="score-pct" id="pct-O">0%</span>
+          </div>
+
+          <div class="score-row">
+            <span class="score-trait">Conscientiousness</span>
+            <div class="bar-track">
+              <div class="bar-fill" id="bar-C" style="--pct: 0%"></div>
+            </div>
+            <span class="score-pct" id="pct-C">0%</span>
+          </div>
+
+          <div class="score-row">
+            <span class="score-trait">Extraversion</span>
+            <div class="bar-track">
+              <div class="bar-fill" id="bar-E" style="--pct: 0%"></div>
+            </div>
+            <span class="score-pct" id="pct-E">0%</span>
+          </div>
+
+          <div class="score-row">
+            <span class="score-trait">Agreeableness</span>
+            <div class="bar-track">
+              <div class="bar-fill" id="bar-A" style="--pct: 0%"></div>
+            </div>
+            <span class="score-pct" id="pct-A">0%</span>
+          </div>
+
+          <div class="score-row">
+            <span class="score-trait">Neuroticism</span>
+            <div class="bar-track">
+              <div class="bar-fill" id="bar-N" style="--pct: 0%"></div>
+            </div>
+            <span class="score-pct" id="pct-N">0%</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- AI Profile Sections -->
+      <div class="profile-sections" id="profile-sections">
+
+        <div class="profile-block" id="block-overview">
+          <h3 class="block-title">Overview</h3>
+          <p class="block-body" id="text-overview"></p>
+        </div>
+
+        <div class="profile-block" id="block-strengths">
+          <h3 class="block-title">Strengths</h3>
+          <p class="block-body" id="text-strengths"></p>
+        </div>
+
+        <div class="profile-block" id="block-blindspots">
+          <h3 class="block-title">Blind Spots</h3>
+          <p class="block-body" id="text-blindspots"></p>
+        </div>
+
+        <div class="profile-block" id="block-thinking">
+          <h3 class="block-title">How You Think & Decide</h3>
+          <p class="block-body" id="text-thinking"></p>
+        </div>
+
+        <div class="profile-block" id="block-social">
+          <h3 class="block-title">Social Behaviour</h3>
+          <p class="block-body" id="text-social"></p>
+        </div>
+
+        <div class="profile-block" id="block-career">
+          <h3 class="block-title">Career Tendencies</h3>
+          <p class="block-body" id="text-career"></p>
+        </div>
+
+        <div class="profile-block" id="block-stress">
+          <h3 class="block-title">Under Stress</h3>
+          <p class="block-body" id="text-stress"></p>
+        </div>
+
+        <div class="profile-block" id="block-growth">
+          <h3 class="block-title">Growth Advice</h3>
+          <p class="block-body" id="text-growth"></p>
+        </div>
+
+      </div>
+
+      <div class="results-footer">
+        <button class="btn-ghost" id="btn-retake">Retake Assessment</button>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="freewill.js"></script>
+</body>
+</html>
