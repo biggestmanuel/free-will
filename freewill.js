@@ -3,7 +3,7 @@
    Quiz logic, OCEAN scoring, and Openrouter API integration
 ═══════════════════════════════════════════ */
 
-const API_KEY = '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';
+const API_KEY = '';
 
 /* ── Question Bank ──────────────────────────
    trait: O=Openness C=Conscientiousness
@@ -179,14 +179,9 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no markd
   "growth": "2–3 sentences of specific, honest growth advice."
 }`;
 
-  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const response = await fetch('/api/analyze', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${API_KEY}`,
-      'HTTP-Referer': 'https://free-will.vercel.app',
-      'X-Title': 'Freewill Analysis',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       model: 'meta-llama/llama-3.1-8b-instruct:free',
       messages: [{ role: 'user', content: prompt }],
