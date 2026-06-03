@@ -3,7 +3,7 @@
    Quiz logic, OCEAN scoring, and Cohere API integration
 ═══════════════════════════════════════════ */
 
-const API_KEY = 'cohere_cz0lKNQCR1jqBj6OPbI9ubjErU2K7hvyHYFuMfgi1FmdWI';
+const API_KEY = cohere_cz0lKNQCR1jqBj6OPbI9ubjErU2K7hvyHYFuMfgi1FmdWI;
 
 /* ── Question Bank ──────────────────────────
    trait: O=Openness C=Conscientiousness
