@@ -182,11 +182,12 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no markd
   const response = await fetch('https://api.cohere.ai/v1/chat', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: 'command-r-plus',
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${API_KEY}`,
+  'X-Client-Name': 'freewill-analysis',
+},
+body: JSON.stringify({
+  model: 'command-r-plus-08-2024',
       messages: [{ role: 'user', content: prompt }],
     }),
   });
