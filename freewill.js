@@ -193,6 +193,8 @@ body: JSON.stringify({
   });
 
   if (!response.ok) {
+    const err = await response.json();
+    console.error('Cohere error:', JSON.stringify(err));
     throw new Error(`API error: ${response.status}`);
   }
 
