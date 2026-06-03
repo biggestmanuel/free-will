@@ -431,6 +431,7 @@ const _origRenderScoreBars = renderScoreBars;
 const _origRenderProfileText = renderProfileText;
 
 document.getElementById('btn-share').addEventListener('click', () => {
+  console.log('share clicked');
   document.getElementById('share-modal').classList.add('active');
 });
 
