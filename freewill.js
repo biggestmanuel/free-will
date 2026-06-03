@@ -1,9 +1,9 @@
 /* ═══════════════════════════════════════════
    FREEWILL ANALYSIS — freewill.js
-   Quiz logic, OCEAN scoring, and Cohere API integration
+   Quiz logic, OCEAN scoring, and Openrouter API integration
 ═══════════════════════════════════════════ */
 
-const API_KEY = 'cohere_r49iXPRUZuvwhmnKhFvoSaAiuOjVKKZAjCEal9si1GYCih';
+const API_KEY = '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';
 
 /* ── Question Bank ──────────────────────────
    trait: O=Openness C=Conscientiousness
@@ -152,7 +152,7 @@ function calculateScores() {
 }
 
 /* ════════════════════════════════════════
-   COHERE API CALL
+   OPENROUTER API CALL
 ════════════════════════════════════════ */
 async function fetchProfile(scores) {
   const prompt = `You are an expert psychologist specializing in the Big Five (OCEAN) personality model.
@@ -179,32 +179,32 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no markd
   "growth": "2–3 sentences of specific, honest growth advice."
 }`;
 
-  const response = await fetch('https://api.cohere.ai/v1/chat', {
+  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${API_KEY}`,
-      'X-Client-Name': 'freewill-analysis',
+      'HTTP-Referer': 'https://free-will.vercel.app',
+      'X-Title': 'Freewill Analysis',
     },
     body: JSON.stringify({
-      model: 'command-r',
-      message: prompt,
+      model: 'meta-llama/llama-3.1-8b-instruct:free',
+      messages: [{ role: 'user', content: prompt }],
     }),
   });
 
   if (!response.ok) {
     const errText = await response.text();
-    console.error('Cohere raw error:', errText);
+    console.error('OpenRouter error:', errText);
     throw new Error(`API error: ${response.status}`);
   }
 
   const data = await response.json();
-  const text = data.text.trim();
+  const text = data.choices[0].message.content.trim();
 
   const clean = text.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
   return JSON.parse(clean);
 }
-
 /* ════════════════════════════════════════
    RESULTS RENDERING
 ════════════════════════════════════════ */
