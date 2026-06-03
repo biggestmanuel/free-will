@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
    FREEWILL ANALYSIS — freewill.js
-   Quiz logic, OCEAN scoring, Anthropic API
+   Quiz logic, OCEAN scoring, and Cohere API integration
 ═══════════════════════════════════════════ */
 
 const API_KEY = 'cohere_cz0lKNQCR1jqBj6OPbI9ubjErU2K7hvyHYFuMfgi1FmdWI';
