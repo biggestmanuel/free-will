@@ -182,13 +182,13 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no markd
   const response = await fetch('https://api.cohere.ai/v1/chat', {
     method: 'POST',
     headers: {
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${API_KEY}`,
-  'X-Client-Name': 'freewill-analysis',
-},
-body: JSON.stringify({
-  model: 'command-r',
-      messages: prompt ,
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${API_KEY}`,
+      'X-Client-Name': 'freewill-analysis',
+    },
+    body: JSON.stringify({
+      model: 'command-r',
+      message: prompt,
     }),
   });
 
@@ -201,7 +201,6 @@ body: JSON.stringify({
   const data = await response.json();
   const text = data.text.trim();
 
-  // strip any accidental markdown fences
   const clean = text.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
   return JSON.parse(clean);
 }
