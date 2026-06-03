@@ -188,7 +188,7 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no markd
 },
 body: JSON.stringify({
   model: 'command-r',
-      messages: [{ role: 'user', content: prompt }],
+      messages: prompt ,
     }),
   });
 
