@@ -284,6 +284,8 @@ async function runAnalysis() {
     showScreen('results');
     renderScoreBars(scores);
     renderProfileText(profile);
+    currentScores = scores;
+    currentProfile = profile;
   } catch (err) {
     stopLoadingMessages();
     console.error('Freewill Analysis error:', err);
@@ -360,4 +362,92 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft' && currentQ > 0) {
     $btnBack.click();
   }
+  /* ════════════════════════════════════════
+   SHARE MODAL
+════════════════════════════════════════ */
+let currentScores  = null;
+let currentProfile = null;
+
+function buildWhatsAppMessage(scores, profile) {
+  const siteUrl = window.location.href;
+
+  return `🧠 *FREEWILL ANALYSIS — My Personality Profile*
+
+━━━━━━━━━━━━━━━━━━━━━
+📊 *OCEAN TRAIT SCORES*
+━━━━━━━━━━━━━━━━━━━━━
+Openness: ${scores.O}%
+Conscientiousness: ${scores.C}%
+Extraversion: ${scores.E}%
+Agreeableness: ${scores.A}%
+Neuroticism: ${scores.N}%
+
+━━━━━━━━━━━━━━━━━━━━━
+🔍 *OVERVIEW*
+━━━━━━━━━━━━━━━━━━━━━
+${profile.overview}
+
+━━━━━━━━━━━━━━━━━━━━━
+💪 *STRENGTHS*
+━━━━━━━━━━━━━━━━━━━━━
+${profile.strengths}
+
+━━━━━━━━━━━━━━━━━━━━━
+⚠️ *BLIND SPOTS*
+━━━━━━━━━━━━━━━━━━━━━
+${profile.blindspots}
+
+━━━━━━━━━━━━━━━━━━━━━
+🧩 *HOW I THINK & DECIDE*
+━━━━━━━━━━━━━━━━━━━━━
+${profile.thinking}
+
+━━━━━━━━━━━━━━━━━━━━━
+🤝 *SOCIAL BEHAVIOUR*
+━━━━━━━━━━━━━━━━━━━━━
+${profile.social}
+
+━━━━━━━━━━━━━━━━━━━━━
+💼 *CAREER TENDENCIES*
+━━━━━━━━━━━━━━━━━━━━━
+${profile.career}
+
+━━━━━━━━━━━━━━━━━━━━━
+😤 *UNDER STRESS*
+━━━━━━━━━━━━━━━━━━━━━
+${profile.stress}
+
+━━━━━━━━━━━━━━━━━━━━━
+🌱 *GROWTH ADVICE*
+━━━━━━━━━━━━━━━━━━━━━
+${profile.growth}
+
+━━━━━━━━━━━━━━━━━━━━━
+Take yours → ${siteUrl}`;
+}
+
+// Store scores and profile when results render
+const _origRenderScoreBars = renderScoreBars;
+const _origRenderProfileText = renderProfileText;
+
+document.getElementById('btn-share').addEventListener('click', () => {
+  document.getElementById('share-modal').classList.add('active');
+});
+
+document.getElementById('share-close').addEventListener('click', () => {
+  document.getElementById('share-modal').classList.remove('active');
+});
+
+document.getElementById('share-modal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('share-modal')) {
+    document.getElementById('share-modal').classList.remove('active');
+  }
+});
+
+document.getElementById('share-whatsapp').addEventListener('click', () => {
+  if (!currentScores || !currentProfile) return;
+  const message = buildWhatsAppMessage(currentScores, currentProfile);
+  const encoded = encodeURIComponent(message);
+  window.open(`https://wa.me/?text=${encoded}`, '_blank');
+});
 });
