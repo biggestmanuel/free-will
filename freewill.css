@@ -5,17 +5,17 @@
 
 /* ── Tokens ── */
 :root {
-  --bg:        #0a0a0a;
-  --bg-2:      #111111;
-  --bg-3:      #1a1a1a;
-  --line:      rgba(255, 255, 255, 0.08);
-  --line-mid:  rgba(255, 255, 255, 0.15);
-  --gold:      #c9a96e;
-  --gold-dim:  rgba(201, 169, 110, 0.18);
-  --gold-glow: rgba(201, 169, 110, 0.06);
-  --white:     #f0ece4;
-  --muted:     rgba(240, 236, 228, 0.45);
-  --faint:     rgba(240, 236, 228, 0.2);
+  --bg:        #050d1a;
+  --bg-2:      #0a1628;
+  --bg-3:      #0f1f35;
+  --line:      rgba(0, 150, 200, 0.12);
+  --line-mid:  rgba(0, 150, 200, 0.25);
+  --gold:      #00c9b1;
+  --gold-dim:  rgba(0, 201, 177, 0.15);
+  --gold-glow: rgba(0, 201, 177, 0.06);
+  --white:     #e8f4f8;
+  --muted:     rgba(232, 244, 248, 0.45);
+  --faint:     rgba(232, 244, 248, 0.2);
 
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans:  'Jost', sans-serif;
@@ -137,7 +137,7 @@ body {
   font-size: clamp(8rem, 18vw, 18rem);
   font-weight: 300;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(201, 169, 110, 0.07);
+  -webkit-text-stroke: 1px rgba(0, 150, 200, 0.08);
   line-height: 1;
   user-select: none;
 }
@@ -524,7 +524,7 @@ body {
 .bar-fill {
   position: absolute;
   left: 0; top: 0; bottom: 0;
-  background: var(--gold);
+  background: linear-gradient(90deg, #0066cc, #00c9b1);
   width: var(--pct);
   transition: width 1.2s var(--ease-out);
   transform-origin: left;
@@ -539,8 +539,8 @@ body {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 8px rgba(201, 169, 110, 0.6);
+  background: #00c9b1;
+  box-shadow: 0 0 10px rgba(0, 201, 177, 0.8);
 }
 
 .score-pct {
