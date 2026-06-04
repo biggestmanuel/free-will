@@ -201,142 +201,11 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no markd
   return JSON.parse(clean);
 }
 /* ════════════════════════════════════════
-   RESULTS RENDERING
-════════════════════════════════════════ */
-function renderScoreBars(scores) {
-  const map = { O: 'O', C: 'C', E: 'E', A: 'A', N: 'N' };
-
-  // small delay so the screen transition finishes first
-  setTimeout(() => {
-    for (const t in map) {
-      const bar = document.getElementById(`bar-${t}`);
-      const pct = document.getElementById(`pct-${t}`);
-      if (bar && pct) {
-        bar.style.setProperty('--pct', scores[t] + '%');
-        pct.textContent = scores[t] + '%';
-      }
-    }
-  }, 200);
-}
-
-function renderProfileText(profile) {
-  const sectionMap = {
-    'text-overview':   profile.overview,
-    'text-strengths':  profile.strengths,
-    'text-blindspots': profile.blindspots,
-    'text-thinking':   profile.thinking,
-    'text-social':     profile.social,
-    'text-career':     profile.career,
-    'text-stress':     profile.stress,
-    'text-growth':     profile.growth,
-  };
-
-  for (const [id, text] of Object.entries(sectionMap)) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = text || '';
-  }
-
-  // staggered fade-in for profile blocks
-  const blocks = document.querySelectorAll('.profile-block');
-  blocks.forEach((block, i) => {
-    setTimeout(() => block.classList.add('visible'), 300 + i * 120);
-  });
-}
-
-/* ════════════════════════════════════════
-   LOADING MESSAGES
-════════════════════════════════════════ */
-const loadingMessages = [
-  'Calculating trait scores…',
-  'Mapping your OCEAN profile…',
-  'Consulting the analysis engine…',
-  'Composing your portrait…',
-  'Almost there…',
-];
-
-let loadingInterval;
-
-function startLoadingMessages() {
-  let i = 0;
-  $loadingMsg.textContent = loadingMessages[0];
-  loadingInterval = setInterval(() => {
-    i = (i + 1) % loadingMessages.length;
-    $loadingMsg.textContent = loadingMessages[i];
-  }, 2200);
-}
-
-function stopLoadingMessages() {
-  clearInterval(loadingInterval);
-}
-
-/* ════════════════════════════════════════
-   MAIN FLOW
-════════════════════════════════════════ */
-async function runAnalysis() {
-  showScreen('loading');
-  startLoadingMessages();
-
-  const scores = calculateScores();
-
-  try {
-    const profile = await fetchProfile(scores);
-    stopLoadingMessages();
-    showScreen('results');
-    renderScoreBars(scores);
-    renderProfileText(profile);
-    currentScores = scores;
-    currentProfile = profile;
-  } catch (err) {
-    stopLoadingMessages();
-    console.error('Freewill Analysis error:', err);
-    alert('Something went wrong while generating your profile. Please check your API key and try again.');
-    showScreen('quiz');
-    renderQuestion(currentQ);
-  }
-}
-
-/* ════════════════════════════════════════
-   EVENT LISTENERS
-════════════════════════════════════════ */
-
-// Start
-$btnStart.addEventListener('click', () => {
-  currentQ = 0;
-  answers  = new Array(QUESTIONS.length).fill(null);
-  showScreen('quiz');
-  renderQuestion(0);
-});
-
-// Back
-$btnBack.addEventListener('click', () => {
-  if (currentQ > 0) {
-    currentQ--;
-    renderQuestion(currentQ);
-  }
-});
-
-// Next / Submit
-$btnNext.addEventListener('click', () => {
-  if (answers[currentQ] === null) return;
-
-  if (currentQ < QUESTIONS.length - 1) {
-    currentQ++;
-    renderQuestion(currentQ);
-  } else {
-    runAnalysis();
-  }
-});
-
 // Retake
 $btnRetake.addEventListener('click', () => {
-    document.getElementById('btn-share').addEventListener('click', () => {
-  console.log('share clicked');
-  document.getElementById('share-modal').classList.add('active');
-});
   currentQ = 0;
   answers  = new Array(QUESTIONS.length).fill(null);
 
-  // reset score bars
   ['O','C','E','A','N'].forEach(t => {
     const bar = document.getElementById(`bar-${t}`);
     const pct = document.getElementById(`pct-${t}`);
@@ -344,29 +213,21 @@ $btnRetake.addEventListener('click', () => {
     if (pct) pct.textContent = '0%';
   });
 
-  // reset profile blocks visibility
   document.querySelectorAll('.profile-block').forEach(b => b.classList.remove('visible'));
-
   showScreen('landing');
 });
 
-// Keyboard support — press 1–5 to select, Enter to advance
+// Keyboard support
 document.addEventListener('keydown', (e) => {
   if (!screens.quiz.classList.contains('active')) return;
 
   const num = parseInt(e.key);
-  if (num >= 1 && num <= 5) {
-    selectOption(num);
-  }
+  if (num >= 1 && num <= 5) selectOption(num);
+  if (e.key === 'Enter' && answers[currentQ] !== null) $btnNext.click();
+  if (e.key === 'ArrowLeft' && currentQ > 0) $btnBack.click();
+});
 
-  if (e.key === 'Enter' && answers[currentQ] !== null) {
-    $btnNext.click();
-  }
-
-  if (e.key === 'ArrowLeft' && currentQ > 0) {
-    $btnBack.click();
-  }
-  /* ════════════════════════════════════════
+/* ════════════════════════════════════════
    SHARE MODAL
 ════════════════════════════════════════ */
 let currentScores  = null;
@@ -374,7 +235,6 @@ let currentProfile = null;
 
 function buildWhatsAppMessage(scores, profile) {
   const siteUrl = window.location.href;
-
   return `🧠 *FREEWILL ANALYSIS — My Personality Profile*
 
 ━━━━━━━━━━━━━━━━━━━━━
@@ -430,10 +290,9 @@ ${profile.growth}
 Take yours → ${siteUrl}`;
 }
 
-// Store scores and profile when results render
-const _origRenderScoreBars = renderScoreBars;
-const _origRenderProfileText = renderProfileText;
-
+document.getElementById('btn-share').addEventListener('click', () => {
+  document.getElementById('share-modal').classList.add('active');
+});
 
 document.getElementById('share-close').addEventListener('click', () => {
   document.getElementById('share-modal').classList.remove('active');
@@ -450,5 +309,4 @@ document.getElementById('share-whatsapp').addEventListener('click', () => {
   const message = buildWhatsAppMessage(currentScores, currentProfile);
   const encoded = encodeURIComponent(message);
   window.open(`https://wa.me/?text=${encoded}`, '_blank');
-});
 });
