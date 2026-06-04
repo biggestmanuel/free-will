@@ -821,3 +821,25 @@ body {
   padding-top: 2rem;
   border-top: 1px solid rgba(0, 150, 200, 0.15);
 }
+.share-guide {
+  background: rgba(0, 150, 200, 0.06);
+  border: 1px solid rgba(0, 150, 200, 0.15);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.75rem;
+  text-align: left;
+}
+
+.share-guide-title {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #00c9b1;
+  margin-bottom: 0.5rem;
+}
+
+.share-guide-text {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
