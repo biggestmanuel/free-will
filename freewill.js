@@ -200,7 +200,6 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no markd
   const clean = text.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
   return JSON.parse(clean);
 }
-/* ════════════════════════════════════════
 // Retake
 $btnRetake.addEventListener('click', () => {
   currentQ = 0;
