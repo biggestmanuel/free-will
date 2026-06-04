@@ -729,3 +729,95 @@ body {
   flex-wrap: wrap;
   padding-top: 4rem;
 }
+/* ════════════════════════════════════════
+   SCORE CARD RENDER
+════════════════════════════════════════ */
+.score-card-render {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 600px;
+  background: #050d1a;
+  padding: 3rem 3.5rem;
+  border: 1px solid rgba(0, 150, 200, 0.25);
+  font-family: 'Jost', sans-serif;
+}
+
+.sc-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 150, 200, 0.15);
+}
+
+.sc-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #00c9b1;
+  margin-bottom: 0.75rem;
+}
+
+.sc-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: #e8f4f8;
+  line-height: 1;
+}
+
+.sc-title em {
+  font-style: italic;
+  color: #00c9b1;
+}
+
+.sc-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-bottom: 2.5rem;
+}
+
+.sc-row {
+  display: grid;
+  grid-template-columns: 170px 1fr 48px;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sc-trait {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: #e8f4f8;
+}
+
+.sc-track {
+  height: 3px;
+  background: rgba(0, 150, 200, 0.15);
+  position: relative;
+}
+
+.sc-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: linear-gradient(90deg, #0066cc, #00c9b1);
+  width: 0%;
+}
+
+.sc-pct {
+  font-size: 0.78rem;
+  color: #00c9b1;
+  text-align: right;
+}
+
+.sc-url {
+  text-align: center;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(232, 244, 248, 0.3);
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 150, 200, 0.15);
+}

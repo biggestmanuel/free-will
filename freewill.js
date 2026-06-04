@@ -281,11 +281,38 @@ document.getElementById('share-modal').addEventListener('click', (e) => {
   }
 });
 
-document.getElementById('share-whatsapp').addEventListener('click', () => {
+document.getElementById('share-whatsapp').addEventListener('click', async () => {
   if (!currentScores || !currentProfile) return;
-  const message = buildWhatsAppMessage(currentScores, currentProfile);
-  const encoded = encodeURIComponent(message);
-  window.open('https://wa.me/?text=' + encoded, '_blank');
+
+  // populate score card
+  ['O','C','E','A','N'].forEach(t => {
+    const fill = document.getElementById('sc-' + t);
+    const pct  = document.getElementById('sc-pct-' + t);
+    if (fill) fill.style.width = currentScores[t] + '%';
+    if (pct)  pct.textContent  = currentScores[t] + '%';
+  });
+
+  // generate and download image
+  const card = document.getElementById('score-card');
+  card.style.left = '-9999px';
+
+  const canvas = await html2canvas(card, {
+    backgroundColor: '#050d1a',
+    scale: 2,
+    useCORS: true,
+  });
+
+  const link = document.createElement('a');
+  link.download = 'freewill-analysis.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+
+  // open WhatsApp with text
+  setTimeout(() => {
+    const message = buildWhatsAppMessage(currentScores, currentProfile);
+    const encoded = encodeURIComponent(message);
+    window.open('https://wa.me/?text=' + encoded, '_blank');
+  }, 1000);
 });
 
 document.addEventListener('keydown', (e) => {
